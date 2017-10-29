@@ -11,7 +11,6 @@ from sklearn.tree import DecisionTreeClassifier
 
 movies = movie.objects.all()
 
-
 def home(request):
     message = ''
     url = '/FliXx/'
@@ -143,11 +142,13 @@ def detailedview(request, id):
     for i in movies:
         if int(id) == int(i.id):
             s = set()
+            o=[]
             g = []
             for j in i.genres.all():
                 if j.Name not in s:
-                    if j not in g:
+                    if j.Name not in o:
                         g.append(j)
+                        o.append(j.Name)
             print (form)
             return render(request, 'flixx/Detailedview.html', {'reviewed':reviewed,'url':l,'action':'review','form':form,'reviews':re,'g':g,'s':a,'movie': i, 'message': message})
     message = "Your Credentials did not match any existing movie data please try again."

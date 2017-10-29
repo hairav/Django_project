@@ -3,7 +3,7 @@
 {% block content %}
     <div>
         {% include 'flixx/description.html' %}
-    <center><strong><h2>Latest Movies</h2></strong></center>
+    <center><strong><h1>Latest Movies</h1></strong></center>
             {% if 'Username' not in request.session %}<h1><center><b>{{ message }}</b></center></h1>
 
                     <div class="col-sm-9 row" style="width: 70%;float: left; height:70%;overflow: auto;">
@@ -16,7 +16,7 @@
                     {% endfor %}
 
                     </div>
-                <span class="col-sm-3 float-right" ">
+                <span class="col-sm-3 float-right" >
                             {% include 'flixx/form.html' %}
                         </span>
             {% else %}

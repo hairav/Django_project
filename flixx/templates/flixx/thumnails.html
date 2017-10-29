@@ -1,4 +1,4 @@
-<div class="container" style="border: double darkolivegreen">
+<div class="container" style="border:solid #d25452 2px; margin: 3%;">
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
@@ -8,12 +8,12 @@
 
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="https://placeimg.com/200/130/any" /></a></li>
 
 						</ul>
 						
 					</div>
-					<div class="details col-md-6" style="background-color: #faf2cc">
+					<div class="details col-md-9" style="background-color: #faf2cc">
 						<h3 class="product-title">{{ movie.title }}</h3>
 						<div class="rating">
 							<div class="stars">
@@ -31,8 +31,8 @@
 						<p>{{ movie.overview }}</p>
 						<div class="action">
                             <a href="/FliXx/{{ movie.id }}"><button class="add-to-cart btn btn-success" type="button">Find more</button></a>
-                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">like</span></button></a>
-                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-warning" type="button"><span class="fa fa-heart">Dislike</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">Like</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-danger" type="button"><span class="fa fa-heart">Dislike</span></button></a>
 						</div>
 					</div>
 				</div>
