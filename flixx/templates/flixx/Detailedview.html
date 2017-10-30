@@ -3,62 +3,61 @@
     FliXx | Movie no. {{ movie.id }}
 {% endblock %}
 {% block content %}
-    <div class="container-fluid" style="background-color: #4cae4c">
+    <div class="container-fluid" style="background-color:#ffffff ">
+        <h1  style="margin-left: 10%">Movie Tags</h1>
         <center>
-            <ul>
+
+            <div class="row">
                 {% for i in g %}
-                    <li>{{ i }}</li>
+                    <span class="col-md-3 badge">{{ i }}</span>
                 {% endfor %}
-            </ul>
+            </div>
             <hr>
-        <ol>
-            <li><button class="btn btn-primary" type="button">
-            Budget     <span class="badge">{{ movie.Budget }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            Title     <span class="badge">{{ movie.title }}</span><br>
-            </button>
-        <li>    <button class="btn btn-primary" type="button">
-            Tag     <span class="badge">{{ movie.tag }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            Status     <span class="badge">{{ movie.status }}</span><br>
-            </button>
-        <li>    <button class="btn btn-primary" type="button">
-            Link to website     <span class="badge">{{ movie.url }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            Description     <span class="badge">{{ movie.overview }}</span><br>
-            </button>
-        <li>    <button class="btn btn-primary" type="button">
-            popularity quantified     <span class="badge">{{ movie.popularity }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            Earnings($)  <span class="badge">{{ movie.revenue }}</span><br>
-            </button>
-        <li>    <button class="btn btn-primary" type="button">
-            Length(min)     <span class="badge">{{ movie.runtime }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            Release Date    <span class="badge">{{ movie.dateofrelease }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            Rating     <span class="badge">{{ movie.averagerating }}</span><br>
-            </button>
-            <li><button class="btn btn-primary" type="button">
-            no of people who rated     <span class="badge">{{ movie.nutr }}</span><br>
-            </button></ol>
+
+         <div class="container-fluid" style="background-color: #cccccc;border :solid 2px">
+             <div class="row">
+                 <div class="col-md-8">
+                     <div class="container-fluid">
+                         <h2 class="row " style="margin-bottom: 5%">{{ movie.title }}</h2>
+                         <h4>{{ movie.overview }}</h4>
+                         <a href="{{ movie.url }}" style="font-size:xx-large; margin-top: 10%">{{ movie.tag }}</a>
+                     </div>
+                 </div>
+
+                 <span class="col-md-4 badge">
+                     <div class="container-fluid">
+                     <h2 class="row">{{ movie.dateofrelease }}</h2>
+                         <h2 class="row">{{ movie.status }}</h2>
+                         <h2 class="row">{{ movie.runtime }}(min)</h2>
+                         <h3 class="row">Rating:{{ movie.averagerating }}</h3>
+                         <h3 class="row">Earnings:{{ movie.revenue }}$</h3>
+                         <h3 class="row">Popularity Score:{{ movie.popularity }}$</h3>
+                         <h3 class="row">No. of Ratings:{{ movie.nutr }}$</h3>
+                         <h3 class="row">Budget:{{ movie.Budget }}$</h3>
+                     </div>
+                 </span>
+
+             </div>
+
+         </div>
+
+
 
         </center>
     </div>
-    <div>
+
+    <div class="container-fluid" style="margin: 5%; padding: 5% ;border: solid 1px; background-color: #e1def0">
+        <h2>Reviews:</h2><br>
         {% for review in reviews %}
-            <div>{{ review.user }} has these views on the movie :-</div><center><span>{{ review.l }}</span></center>
+            <div class="badge">{{ review.user }} :-</div>
+            <span>{{ review.l }}</span><br>
         {% endfor %}
     </div>
-    <div>
-    {% if not reviewed %}
+    <div class="container-fluid" style="margin: 10%">
+    <div class="row">
+    {% if 1 %}
         {% include 'flixx/form.html' %}
     {% endif %}
+    </div>
     </div>
 {% endblock %}

@@ -2,12 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'flixx/images/f-red-logo-png-8.png' %}" />
+
     <link rel="stylesheet" href="{% static 'flixx/css/bootstrap.min.css' %}">
     <title>{% block title %}{% endblock %}</title>
+    <style>
+        h1 ,h2 {
+            color: #ece5d6;
+   -webkit-text-stroke: 1px black;
+}
+    </style>
 </head>
-<body>
+
+<body {% load staticfiles %} style="background:url({% static 'flixx/images/blur-photos-26354-27045-hd-wallpapers.jpg' %}) no-repeat fixed 100% 100%">
   <div class="container-fluid">
      <div class="navbar navbar-default float-right">
          <div class="navbar-header float-left">
@@ -47,13 +55,13 @@
     {% block content %}{% endblock %}
 
   <div>
-<span class="container">
+<div class="row">
 <hr style="color:#23527c">
 <ol class="panel-footer">
     <li><a href=""><h6 class="panel-footer">About FliXx</h6></a> </li>
     <li><a href="/FliXx/aboutus"><h6 class="panel-footer">About Us</h6></a></li>
 </ol>
 
-</span></div>
+</div></div>
 </body>
 </html>

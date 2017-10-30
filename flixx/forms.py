@@ -12,7 +12,7 @@ class LogIn(forms.Form):
    Username=forms.CharField(max_length=10)
    Password=forms.CharField(widget=forms.PasswordInput())
 class reviewing(forms.Form):
-    review=forms.CharField(max_length=500)
+    review=forms.CharField(max_length=500,widget=forms.Textarea())
 
 class search (forms.Form):
     Search = forms.CharField(max_length=50)

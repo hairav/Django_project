@@ -3,4 +3,6 @@
 1.Try to use django's default user model and update database accordingly.
 2.Improve the readability of code.
 3.Improve the front end of the detailed view page.
-4.
+    . find more option is showing tags of that movie (or whatever it is) 2 times.
+4.Have to add (unnecessary ) dropdowns.
+5.Add edit response to the detailed views page.

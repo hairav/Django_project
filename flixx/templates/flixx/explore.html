@@ -1,11 +1,14 @@
 {% extends 'flixx/base.html' %}
 {% block title %}FliXx | Home{% endblock %}
 {% block content %}
-    <div>
+    <div class="container-fluid">
 
-    <center><strong><h2>Popular Movies</h2></strong></center>
+    <center><strong><h1 style=" ">Popular Movies</h1></strong></center>
+    <span class="col-sm-8 float-right">
+                            {% include 'flixx/form.html' %}
+                </span>
 
-                    <div class="col-sm-9 row" style="width: 70%;float: left; height:70%;overflow: auto;">
+                    <div class="col-sm-12 row" style="width: 100%;float: left; height:70%;overflow: auto;">
                         {% for movie in movies %}
                             <div class="float-left">
 
@@ -15,9 +18,7 @@
                     {% endfor %}
 
                     </div>
-                <span class="col-sm-3 float-right">
-                            {% include 'flixx/form.html' %}
-                        </span>
+
 
     </div>
 {% endblock %}
