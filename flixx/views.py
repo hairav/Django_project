@@ -8,8 +8,18 @@ import numpy
 import random
 from sklearn.tree import DecisionTreeClassifier
 
-
+likw=[]
+dis=[]
 movies = movie.objects.all()
+
+
+def make(user):
+    for i in like.objects.all():
+        if i.user==user:
+            if i.l==1:
+                likw.append(i.movie)
+            else:
+                dis.append(i.movie)
 
 def home(request):
     message = ''
@@ -23,7 +33,7 @@ def home(request):
             if i.Username == request.session['Username']:
                 us = i
                 break
-
+    make(us)
     if request.method == "POST":
         form = SignUp(request.POST, request.FILES)
         if form.is_valid():
@@ -36,10 +46,10 @@ def home(request):
         else:
             message = "Something went wrong, Please fill the form again ."
             form = SignUp()
-            return render(request, 'flixx/home.html', {'user': us, 'movies': movie.objects.order_by('-popularity')[:20], 's': a, 'url':url, 'message': message, 'form': form, 'action': "SignUp" })
+            return render(request, 'flixx/home.html', {"lik":likw,"dis":dis,'user': us, 'movies': movie.objects.order_by('-popularity')[:20], 's': a, 'url':url, 'message': message, 'form': form, 'action': "SignUp" })
     else:
         form = SignUp()
-        return render(request, 'flixx/home.html', {'user': us, 'movies': movie.objects.order_by('-popularity')[:20],'s':a,'message':message,'url':url,'form':form,'action':"SignUp"})
+        return render(request, 'flixx/home.html', {"lik":likw,"dis":dis,'user': us, 'movies': movie.objects.order_by('-popularity')[:20],'s':a,'message':message,'url':url,'form':form,'action':"SignUp"})
 
 
 def login(request):
@@ -63,25 +73,35 @@ def login(request):
                         if i.Password == p:
                             request.session['Username'] = un
                             us = i
+                            make(us)
                             a = 'LogOut'
                             message = "Successful login. Welcome to FliXx "+str(i) + "."
-                            return render(request, 'flixx/home.html', {'user': us,'movies':movie.objects.order_by('-dateofrelease')[:20],'s':a,'message': message, 'url': url, 'form': form, 'action': "LogIn"})
+                            return render(request, 'flixx/home.html', {"lik":likw,"dis":dis,'user': us,'movies':movie.objects.order_by('-dateofrelease')[:20],'s':a,'message': message, 'url': url, 'form': form, 'action': "LogIn"})
                             break
                 else:
                     message = "Your Credentials did not match any existing user please try again."
-                    return render(request, 'flixx/login.html',{'s': a,'message': message, 'url': url, 'form': form, 'action': "LogIn"})
+                    return render(request, 'flixx/login.html',{"lik":likw,"dis":dis,'s': a,'message': message, 'url': url, 'form': form, 'action': "LogIn"})
             else:
                 message = "Your messed up please try again."
-                return render(request, 'flixx/login.html',{'s': a,'message': message, 'url': url, 'form': form, 'action': "LogIn"})
+                return render(request, 'flixx/login.html',{"lik":likw,"dis":dis,'s': a,'message': message, 'url': url, 'form': form, 'action': "LogIn"})
 
         else:
             form = LogIn()
-            return render(request, 'flixx/login.html', {'s': a, 'message': message,'url': url, 'form':form, 'action': "LogIn"})
+            return render(request, 'flixx/login.html', {"lik":likw,"dis":dis,'s': a, 'message': message,'url': url, 'form':form, 'action': "LogIn"})
 
 
 def detailedview(request, id):
     m = movie()
     message=''
+    us = user()
+
+    if 'Username' in request.session:
+        a = "LogOut"
+        for i in user.objects.all():
+            if i.Username == request.session['Username']:
+                us = i
+                break
+    make(us)
     a = "LogIn"
     re = []
     form = ''
@@ -117,7 +137,7 @@ def detailedview(request, id):
                                     g.append(j)
                         print (form)
                         return render(request, 'flixx/Detailedview.html',
-                                      {'reviewed': reviewed, 'url': l, 'action': 'review', 'form': form, 'reviews': re,
+                                      {"lik":likw,"dis":dis,'reviewed': reviewed, 'url': l, 'action': 'review', 'form': form, 'reviews': re,
                                        'g': g, 's': a, 'movie': i, 'message': message})
                 message = "Your Credentials did not match any existing movie data please try again."
 
@@ -125,7 +145,7 @@ def detailedview(request, id):
                 url = '/FliXx/login/'
 
                 return render(request, 'flixx/login.html',
-                              {'s': a, 'message': message, 'url': url, 'form': form, 'action': "LogIn"})
+                              {"lik":likw,"dis":dis,'s': a, 'message': message, 'url': url, 'form': form, 'action': "LogIn"})
         else:
             return login(request)
 
@@ -150,17 +170,26 @@ def detailedview(request, id):
                         g.append(j)
                         o.append(j.Name)
             print (form)
-            return render(request, 'flixx/Detailedview.html', {'reviewed':reviewed,'url':l,'action':'review','form':form,'reviews':re,'g':g,'s':a,'movie': i, 'message': message})
+            return render(request, 'flixx/Detailedview.html', {"lik":likw,"dis":dis,'reviewed':reviewed,'url':l,'action':'review','form':form,'reviews':re,'g':g,'s':a,'movie': i, 'message': message})
     message = "Your Credentials did not match any existing movie data please try again."
 
     form = SignUp()
     url = '/FliXx/login/'
 
     return render(request, 'flixx/login.html',
-                  {'s': a, 'message': message, 'url': url, 'form': form, 'action': "LogIn"})
+                  {"lik":likw,"dis":dis,'s': a, 'message': message, 'url': url, 'form': form, 'action': "LogIn"})
 
 
 def lik(request,mi,uid):
+    us = user()
+
+    if 'Username' in request.session:
+        a = "LogOut"
+        for i in user.objects.all():
+            if i.Username == request.session['Username']:
+                us = i
+                break
+    make(us)
     j = like()
     if int(uid) == 0 or int(uid) == 1:
         if "Username" in request.session:
@@ -185,6 +214,15 @@ def lik(request,mi,uid):
 
 
 def recommend(request):
+    us = user()
+
+    if 'Username' in request.session:
+        a = "LogOut"
+        for i in user.objects.all():
+            if i.Username == request.session['Username']:
+                us = i
+                break
+    make(us)
     if 'Username' not in request.session:
         return login(request)
     state = 'LogOut'
@@ -219,12 +257,21 @@ def recommend(request):
         if L[i] == 1:
             li.append(t[i])
     print(len([i for i in L if i ==0]))
-    random.shuffle(li)
+    li.sort(key=lambda X:X.popularity)
     li.reverse()
-    return render(request, 'flixx/recommendations.html', {'s':state,'message': m, 'li': li[:20]})
+    return render(request, 'flixx/recommendations.html', {"lik":likw,"dis":dis,'s':state,'message': m, 'li': li[:20]})
 
 
 def watchedmovies(request):
+    us = user()
+
+    if 'Username' in request.session:
+        a = "LogOut"
+        for i in user.objects.all():
+            if i.Username == request.session['Username']:
+                us = i
+                break
+    make(us)
     if 'Username' not in request.session:
         return login(request)
     state = 'LogOut'
@@ -250,19 +297,37 @@ def watchedmovies(request):
             li.append(i.movie)
     print(li)
     print(di)
-    return render(request,'flixx/watchedmovies.html' ,{'s':state,'message':m,'li':li,'di':di})
+    return render(request,'flixx/watchedmovies.html' ,{"lik":likw,"dis":dis,'s':state,'message':m,'li':li,'di':di})
 
 
 def about_us(request):
+    us = user()
+
+    if 'Username' in request.session:
+        a = "LogOut"
+        for i in user.objects.all():
+            if i.Username == request.session['Username']:
+                us = i
+                break
+    make(us)
     a = 'LogIn'
     message = ''
     if 'Username' in request.session:
         a = 'LogOut'
         message = 'Hey '+str(user.objects.get(Username=request.session['Username']))
-    return render(request,'flixx/about us.html',{'s':a,'message':message})
+    return render(request,'flixx/about us.html',{"lik":likw,"dis":dis,'s':a,'message':message})
 
 
 def find(request):
+    us = user()
+
+    if 'Username' in request.session:
+        a = "LogOut"
+        for i in user.objects.all():
+            if i.Username == request.session['Username']:
+                us = i
+                break
+    make(us)
     if request.method == "POST":
         form = search(request.POST,request.FILES)
         if form.is_valid():
@@ -287,10 +352,10 @@ def find(request):
             url = '/FliXx/Xplore/'
             action = 'Search'
             return render(request, 'flixx/explore.html',
-                          {'movies': movies.order_by('-popularity')[:50], 'url': url, 'action': action, 'form': form})
+                          {"lik":likw,"dis":dis,'movies': movies.order_by('-popularity')[:50], 'url': url, 'action': action, 'form': form})
 
     else:
         form = search()
         url = '/FliXx/Xplore/'
         action = 'Search'
-        return render(request,'flixx/explore.html',{'movies':movies.order_by('-popularity')[:50],'url':url,'action':action,'form':form})
+        return render(request,'flixx/explore.html',{"lik":likw,"dis":dis,'movies':movies.order_by('-popularity')[:50],'url':url,'action':action,'form':form})

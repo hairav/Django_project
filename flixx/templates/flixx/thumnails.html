@@ -29,10 +29,11 @@
 						<p class="product-description">{{ movie.tag }}</p>
 						<h4 class="price">Running time <span>{{ movie.runtime }} minutes</span></h4>
 						<p>{{ movie.overview }}</p>
+
 						<div class="action">
                             <a href="/FliXx/{{ movie.id }}"><button class="add-to-cart btn btn-success" type="button">Find more</button></a>
-                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">Like</span></button></a>
-                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-danger" type="button"><span class="fa fa-heart">Dislike</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">Like{% if movie in lik %}d{% endif %}</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-danger" type="button"><span class="fa fa-heart">Dislike{% if movie in dis %}d{% endif %}</span></button></a>
 						</div>
 					</div>
 				</div>
