@@ -1,5 +1,19 @@
 {% extends 'flixx/base.html' %}
 {% block title %}FliXx | Home{% endblock %}
+{% block navigation %}
+
+<li><a href="/FliXx/watched-movies">Movies watched</a>
+                    </li>
+
+                    <li ><a href="/FliXx/recommend">Recommend</a>
+                    </li>
+                    <li class="active"><a href="/FliXx/Xplore">Explore all movies</a>
+                    </li>
+                    <li><a href="#">Upcoming</a>
+                    </li>
+                    <li><a href="/FliXx/login">{{ s }}</a>
+                    </li>
+{% endblock %}
 {% block content %}
     <div class="container-fluid">
 

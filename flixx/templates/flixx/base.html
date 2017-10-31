@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="{% static 'flixx/images/f-red-logo-png-8.png' %}" />
 
     <link rel="stylesheet" href="{% static 'flixx/css/bootstrap.min.css' %}">
+
     <title>{% block title %}{% endblock %}</title>
     <style>
         h1 ,h2 {
@@ -13,36 +14,28 @@
    -webkit-text-stroke: 1px black;
 }
     </style>
-</head>
 
+
+</head>
 <body {% load staticfiles %} style="background:url({% static 'flixx/images/blur-photos-26354-27045-hd-wallpapers.jpg' %}) no-repeat fixed 100% 100%">
   <div class="container-fluid">
-     <div class="navbar navbar-default float-right">
-         <div class="navbar-header float-left">
+     <div class="navbar navbar-default">
+         <div class="navbar-header">
     </div>
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span style="float: right" class="icon-bar"></span>
             </button>
             <a class="navbar-brand bg-success" href="/FliXx/">FliXx</a>
         </div>
         <center>
-            <div class="navbar-collapse navbar-left collapse" id="navbar-main">
+            <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/FliXx/watched-movies">Movies watched</a>
-                    </li>
-
-                    <li><a href="/FliXx/recommend">Recommend</a>
-                    </li>
-                    <li><a href="/FliXx/Xplore">Explore all movies</a>
-                    </li>
-                    <li><a href="#">Upcoming</a>
-                    </li>
-                    <li class="float-right"><a href="/FliXx/login">{{ s }}</a>
-                    </li>
+                    {% block navigation %}
+                    {% endblock %}
                 </ul>
 
             </div>
@@ -56,12 +49,22 @@
 
   <div>
 <div class="row">
-<hr style="color:#23527c">
-<ol class="panel-footer">
-    <li><a href=""><h6 class="panel-footer">About FliXx</h6></a> </li>
-    <li><a href="/FliXx/aboutus"><h6 class="panel-footer">About Us</h6></a></li>
+{#<hr style="color:#23527c">#}
+<ol class="footer">
+    <li><a href=""><h5 class="panel-footer"><center>About FliXx</center></h5></a> </li>
+    <li><a href="/FliXx/aboutus"><h5 class="panel-footer"><center>About Us</center></h5></a></li>
 </ol>
 
 </div></div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script>
+    $(".nav li").on("click", function() {
+      $(".nav li").removeClass("active");
+      $(this).addClass("active");
+    });
+
+</script>
 </body>
 </html>
