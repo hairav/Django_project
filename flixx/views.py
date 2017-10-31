@@ -14,6 +14,8 @@ movies = movie.objects.all()
 
 
 def make(user):
+    likw[:] = []
+    dis[:] = []
     for i in like.objects.all():
         if i.user==user:
             if i.l==1:

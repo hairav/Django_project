@@ -1,12 +1,27 @@
 {% extends 'flixx/base.html' %}
 {% block title %}FliXx | Home{% endblock %}
+{% block navigation %}
+
+<li><a href="/FliXx/watched-movies">Movies watched</a>
+                    </li>
+
+                    <li ><a href="/FliXx/recommend">Recommend</a>
+                    </li>
+                    <li ><a href="/FliXx/Xplore">Explore all movies</a>
+                    </li>
+                    <li><a href="#">Upcoming</a>
+                    </li>
+                    <li><a href="/FliXx/login">{{ s }}</a>
+                    </li>
+{% endblock %}
 {% block content %}
     <div>
         {% include 'flixx/description.html' %}
     <center><strong><h1>Latest Movies</h1></strong></center>
             {% if 'Username' not in request.session %}<h1><center><b>{{ message }}</b></center></h1>
-
-                    <div class="col-sm-9 row" style="width: 70%;float: left; height:70%;overflow: auto;">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-9 row" style="overflow: auto;margin-right: 1%">
                         {% for movie in movies %}
                             <div class="float-left">
 
@@ -14,13 +29,16 @@
 
                             </div>
                     {% endfor %}
-
                     </div>
-                <span class="col-sm-3 float-right" >
+                    <span class="col-sm-3" >
                             {% include 'flixx/form.html' %}
-                        </span>
+                </span>
+                </div>
+                </div>
+
             {% else %}
-                <span class="col-sm-12">
+                <div class="container-fluid">
+                <div class="col-sm-12">
                     {% for movie in movies %}
                         <span class="float-left">
 
@@ -28,7 +46,8 @@
 
                         </span>
                     {% endfor %}
-                </span>
+                </div>
+                </div>
             {% endif %}
     </div>
 {% endblock %}

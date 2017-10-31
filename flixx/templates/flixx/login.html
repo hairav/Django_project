@@ -1,8 +1,40 @@
 {% extends 'flixx/base.html' %}
 {% block title %}FliXx | Login{% endblock %}
+{% block navigation %}
+
+<li><a href="/FliXx/watched-movies">Movies watched</a>
+                    </li>
+
+                    <li ><a href="/FliXx/recommend">Recommend</a>
+                    </li>
+                    <li ><a href="/FliXx/Xplore">Explore all movies</a>
+                    </li>
+                    <li><a href="#">Upcoming</a>
+                    </li>
+                    <li class="active"><a href="/FliXx/login">{{ s }}</a>
+                    </li>
+{% endblock %}
 {% block content %}
-    <h1><center><b>{{ message }}</b></center></h1>
+
+
+
+{#    <h1><center><b>{{ message }}</b></center></h1>#}
+    <hr width="40%">
+    <br>
+    <div class="container-fluid" style="background-color: rgba(255, 255, 236, 0.33);; margin-left: 35%;margin-right: 35%;">
     <center>
+<br>
+<br>
 {% include 'flixx/form.html' %}
+    <br>
+    <br>
 </center>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 {% endblock %}
