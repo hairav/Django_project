@@ -18,7 +18,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^login/',views.login,name='login'),
+    url(r'^login/',views.rogin,name='login'),
     url(r'^$', views.home,name='home'),
     url(r'^(\d{1,4})$', views.detailedview, name='detailedview'),
     url(r'^(\d{1,4})/(\d{1})$', views.lik ,name='like'),

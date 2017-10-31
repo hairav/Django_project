@@ -39,18 +39,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # <--
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_GITHUB_KEY = '83e5ebe8b21efc901b71'
+SOCIAL_AUTH_GITHUB_SECRET = 'be3c5239eb42eeea89df2c79259ffbf2b1baf5b6'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '530341827358313'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '1b061bed74a9ab5cd550056120b762b3'  # App Secret
 
 ROOT_URLCONF = 'FliXx.urls'
 
@@ -65,13 +80,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'FliXx.wsgi.application'
-
+LOGIN_URL = 'flixx:login'
+LOGOUT_URL = 'flixx:login'
+LOGIN_REDIRECT_URL = 'flixx:home'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases

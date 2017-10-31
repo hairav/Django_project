@@ -13,7 +13,8 @@
                     </li>
                     <li><a href="#">Upcoming</a>
                     </li>
-                    <li><a href="/FliXx/login">{{ s }}</a>
+                    <li><a href="/FliXx/login">{% if user.is_authenticated %}LogOut{% else %}LogIn
+                    {% endif %}</a>
                     </li>
 {% endblock %}
 {% block content %}
@@ -69,7 +70,7 @@
     </div>
     <div class="container-fluid" style="margin: 10%">
     <div class="row">
-    {% if 1 %}
+    {% if user.is_authenticated %}
         {% include 'flixx/form.html' %}
     {% endif %}
     </div>

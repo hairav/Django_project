@@ -5,20 +5,21 @@
 <li><a href="/FliXx/watched-movies">Movies watched</a>
                     </li>
 
-                    <li ><a href="/FliXx/recommend">Recommend</a>
+                    <li ><a href="{% url 'flixx:recommend' %}">Recommend</a>
                     </li>
-                    <li ><a href="/FliXx/Xplore">Explore all movies</a>
+                    <li ><a href="{% url 'flixx:search' %}">Explore all movies</a>
                     </li>
                     <li><a href="#">Upcoming</a>
                     </li>
-                    <li><a href="/FliXx/login">{{ s }}</a>
+                    <li><a href="{% url 'flixx:login' %}">{% if user.is_authenticated %}LogOut{% else %}LogIn
+                    {% endif %}</a>
                     </li>
 {% endblock %}
 {% block content %}
     <div>
         {% include 'flixx/description.html' %}
     <center><strong><h1>Latest Movies</h1></strong></center>
-            {% if 'Username' not in request.session %}<h1><center><b>{{ message }}</b></center></h1>
+            {% if 'Username' not in request.session %}
                 <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-9 row" style="overflow: auto;margin-right: 1%">
@@ -30,9 +31,12 @@
                             </div>
                     {% endfor %}
                     </div>
-                    <span class="col-sm-3" >
+                {% if not user.is_authenticated %}
+                    <span class="col-sm-3" style="">
+
                             {% include 'flixx/form.html' %}
-                </span>
+                    </span>
+                    {% endif %}
                 </div>
                 </div>
 

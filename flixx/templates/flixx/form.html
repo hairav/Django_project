@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container-fluid" style="background-color: rgba(255, 255, 236, 0.33);padding: 20%;">
 <form class="form-vertical" method="post" action="{{ url }}">
     {% csrf_token %}
 {% for field in form %}
-    <div class="row" style="padding: 1%">
+    <div class="row" style="">
                     {{ field.errors }}
                     <span class="float-left">{{ field.label_tag }}</span>
                     <div class="row">{{ field }}</div>
@@ -11,6 +11,12 @@
                     {% endif %}
                 </div>
             {% endfor %}
-
+            {% if gh %}
+                <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+                <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a><br>
+            {% endif %}
+                        <br>
                       <input type="submit" class="btn btn-success" value={{ action }}>
-</form></div>
+
+</form>
+</div>

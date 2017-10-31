@@ -19,5 +19,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^FliXx/', include('flixx.urls')),
+    url(r'^FliXx/', include('flixx.urls',namespace='flixx')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
