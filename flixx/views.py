@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate,logout
 #from django.db.models import Q
-from flixx.forms import LogIn, reviewing, search, SignUp
+from flixx.forms import LogIn, reviewing, search, SignUp ,UserUpdate
 from flixx.models import movie, Genre, like, review
 #from django.http import HttpResponse
 import numpy
@@ -13,17 +13,26 @@ from django.contrib.auth.models import User
 likw=[]
 dis=[]
 movies = movie.objects.all()
+def make(request):
+    global likw
+    global dis
+    likw=[]
+    dis=[]
+    us=User()
+    try:
+        us=request.user
+    except:
+        return
+    a=like.objects.filter(user=us)
+    for i in a:
+        if i.l==0:
+            dis.append(i.movie)
+            continue
+        else:
+            likw.append(i.movie)
+    print(likw)
+    print(dis)
 
-
-def make(user):
-    likw[:] = []
-    dis[:] = []
-    for i in like.objects.all():
-        if i.user==user:
-            if i.l==1:
-                likw.append(i.movie)
-            else:
-                dis.append(i.movie)
 
 def home(request):
     message = ''
@@ -39,10 +48,10 @@ def home(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             us = request.user
-            #make(us)
+            make(us)
             a = "logOut"
             return render(request, 'flixx/home.html',
-                          {"lik": likw, "dis": dis, 'user': us, 'movies': movie.objects.order_by('-popularity')[:20],
+                          {"lik": likw, "dis": dis,  'movies': movie.objects.order_by('-popularity')[:20],
                            's': a, 'message': message, 'url': url, 'action': "SignUp"})
 
         else:
@@ -50,16 +59,39 @@ def home(request):
             form = SignUp()
             return render(request, 'flixx/home.html', {"lik":likw,"dis":dis, 'movies': movie.objects.order_by('-popularity')[:20], 's': a, 'url':url, 'message': message, 'form': form, 'action': "SignUp" })
     if request.user.is_authenticated():
-        us = request.user
-        # make(us)
+        make(request)
         a = "logOut"
         return render(request, 'flixx/home.html',
-                      {"lik": likw, "dis": dis, 'user': us, 'movies': movie.objects.order_by('-popularity')[:20],
+                      {"lik": likw, "dis": dis, 'movies': movie.objects.order_by('-popularity')[:20],
                        's': a, 'message': message, 'url': url, 'action': "SignUp"})
 
     else:
         form = SignUp()
         return render(request, 'flixx/home.html', {"lik":likw,"dis":dis, 'movies': movie.objects.order_by('-popularity')[:20],'message':message,'url':url,'form':form,'action':"SignUp"})
+
+
+def UpdateProfile(request):
+    if not request.user.is_authenticated():
+        return rogin(request)
+    if request.method=="POST":
+        form=UserUpdate(request.POST)
+        if form.is_valid():
+            fn=form.cleaned_data['first_name']
+            sn=form.cleaned_data['last_name']
+            em=form.cleaned_data['email']
+            us=request.user
+            us.first_name=fn
+            us.last_name=sn
+            us.email=em
+            us.save()
+            print(us.email)
+            del request.POST
+            print(us.email)
+    else:
+        form=UserUpdate()
+        print(str(request.user))
+    return render(request,'flixx/updateprofile.html',{'message':"hey "+str(request.user),'form':form})
+
 def rogin(request):
     message = "Welcome back, please fill your credential ."
     url = '/FliXx/login/'
@@ -67,6 +99,10 @@ def rogin(request):
     gh=False
     if request.user.is_authenticated():
         auth_views.logout(request)
+        global likw
+        global dis
+        likw=[]
+        dis=[]
         return home(request)
     if request.method=='POST':
         form=LogIn(request.POST)
@@ -79,8 +115,9 @@ def rogin(request):
                 #make(user)
                 a = 'LogOut'
                 message = "Successful login. Welcome to FliXx " + str(user) + "."
+                make(request)
                 return render(request, 'flixx/home.html',
-                              {"lik": likw, "dis": dis, 'user': user, 'movies': movie.objects.order_by('-dateofrelease')[:20],
+                              {"lik": likw, "dis": dis,'movies': movie.objects.order_by('-dateofrelease')[:20],
                                's': a, 'message': message, 'url': url, 'action': "LogIn"})
 
             else:
@@ -104,7 +141,7 @@ def detailedview(request, id):
     form=''
     action = 'Review'
     message=''
-    url = str(id)
+    url = '/FliXx/'+str(id)
     try:
         mov=movie.objects.get(id=id)
     except:
@@ -139,7 +176,9 @@ def detailedview(request, id):
 def lik(request,mi,uid):
     li=like()
     if request.user.is_authenticated():
-        us=request.user
+
+
+
         try:
             for i in like.objects.filter(movie=movie.objects.get(id=int(mi))):
                 if i.user == request.user:
@@ -159,6 +198,8 @@ def recommend(request):
     if not request.user.is_authenticated():
         return rogin(request)
     m = 'Hey '+str(request.user)+' Here are some movies we recommend based on your likes and dislikes  .'
+    make(request)
+
     print(m)
     x=[]
     Y=[]
@@ -199,6 +240,8 @@ def recommend(request):
 def watchedmovies(request):
     if not request.user.is_authenticated():
         return rogin(request)
+    make(request)
+
     us=request.user
     li = []
     di = []
@@ -224,7 +267,8 @@ def about_us(request):
 
 
 def find(request):
-
+    if request.user.is_authenticated():
+        make(request)
     if request.method == "POST":
         form = search(request.POST,request.FILES)
         if form.is_valid():

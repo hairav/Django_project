@@ -18,18 +18,18 @@
                     </li>
 {% endblock %}
 {% block content %}
-    <div class="container-fluid" style="background-color:#ffffff ">
+    <div class="container-fluid" style="background-color: rbga()">
         <h1  style="margin-left: 10%">Movie Tags</h1>
         <center>
 
             <div class="row">
                 {% for i in g %}
-                    <span class="col-md-3 badge">{{ i }}</span>
+                    <span class="col-md-3 btn-warning" style="padding: 5px">{{ i }}</span>
                 {% endfor %}
             </div>
             <hr>
 
-         <div class="container-fluid" style="background-color: #cccccc;border :solid 2px">
+         <div class="container-fluid" style="background-color: rgba(229,232,247,0.59);;border :solid 2px">
              <div class="row">
                  <div class="col-md-8">
                      <div class="container-fluid">
@@ -39,7 +39,7 @@
                      </div>
                  </div>
 
-                 <span class="col-md-4 badge">
+                 <span class="col-md-4 btn-warning">
                      <div class="container-fluid">
                      <h2 class="row">{{ movie.dateofrelease }}</h2>
                          <h2 class="row">{{ movie.status }}</h2>

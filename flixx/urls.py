@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from . import views
+from flixx.feeds import UT
 
 urlpatterns = [
     url(r'^login/',views.rogin,name='login'),
@@ -25,5 +26,7 @@ urlpatterns = [
     url(r'^recommend/$', views.recommend, name='recommend'),
     url(r'^watched-movies/$', views.watchedmovies ,name='watched-movies'),
     url(r'^aboutus/$', views.about_us , name='about us'),
-    url(r'^Xplore/$',views.find,name='search')
+    url(r'^Xplore/$',views.find,name='search'),
+    url(r'reviews/', UT(), name= 'reviews'),
+    url(r'updateprofile/', views.UserUpdate, name= 'updateuser'),
 ]

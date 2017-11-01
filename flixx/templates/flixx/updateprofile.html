@@ -1,0 +1,20 @@
+{% extends 'flixx/base.html' %}
+{% block title %}FliXx | View Profile{% endblock %}
+{% block navigation %}
+
+<li><a href="/FliXx/watched-movies">Movies watched</a>
+                    </li>
+
+                    <li ><a href="/FliXx/recommend">Recommend</a>
+                    </li>
+                    <li ><a href="/FliXx/Xplore">Explore all movies</a>
+                    </li>
+                    <li><a href="#">Upcoming</a>
+                    </li>
+                    <li class="active"><a href="/FliXx/login">{% if user.is_authenticated %}LogOut{% else %}LogIn
+                    {% endif %}</a>
+                    </li>
+{% endblock %}
+{% block content %}
+    {% include 'flixx/form.html' %}
+{% endblock %}

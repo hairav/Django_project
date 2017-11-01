@@ -1,4 +1,4 @@
-<div class="container-fluid" style="  border:solid #d25452 2px; margin: 3%;">
+<div class="container-fluid" style=" border:solid #d25452 2px; margin: 5%;">
 		<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
@@ -13,7 +13,7 @@
 						</ul>
 						
 					</div>
-					<div class="details col-md-9" style="background-color: #faf2cc">
+					<div class="details col-md-9" style="background-color: rgba(101,113,255,0.33);">
 						<h3 class="product-title">{{ movie.title }}</h3>
 						<div class="rating">
 							<div class="stars">
@@ -29,12 +29,25 @@
 						<p class="product-description">{{ movie.tag }}</p>
 						<h4 class="price">Running time <span>{{ movie.runtime }} minutes</span></h4>
 						<p>{{ movie.overview }}</p>
-
+                    {% if movie in lik %}
 						<div class="action">
                             <a href="/FliXx/{{ movie.id }}"><button class="add-to-cart btn btn-success" type="button">Find more</button></a>
-                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">Like{% if movie in lik %}d{% endif %}</span></button></a>
-                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-danger" type="button"><span class="fa fa-heart">Dislike{% if movie in dis %}d{% endif %}</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-default" type="button"><span class="fa fa-heart">Liked</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-danger" type="button"><span class="fa fa-heart">Dislike</span></button></a>
 						</div>
+                    {% elif movie in dis %}
+						<div class="action">
+                            <a href="/FliXx/{{ movie.id }}"><button class="add-to-cart btn btn-success" type="button">Find more</button></a>
+                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">Like</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-default" type="button"><span class="fa fa-heart">Disliked</span></button></a>
+						</div>
+                    {% else %}
+						<div class="action">
+                            <a href="/FliXx/{{ movie.id }}"><button class="add-to-cart btn btn-success" type="button">Find more</button></a>
+                            <a href="/FliXx/{{ movie.id }}/1"><button class="like btn btn-primary" type="button"><span class="fa fa-heart">Like</span></button></a>
+                            <a href="/FliXx/{{ movie.id }}/0"><button class="like btn btn-danger" type="button"><span class="fa fa-heart">Dislike</span></button></a>
+						</div>
+                    {% endif %}
 					</div>
 				</div>
 			</div>
