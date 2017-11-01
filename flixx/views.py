@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate,logout
 #from django.db.models import Q
 from flixx.forms import LogIn, reviewing, search, SignUp ,UserUpdate
 from flixx.models import movie, Genre, like, review
-#from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 import numpy
 import random
 from sklearn.tree import DecisionTreeClassifier
@@ -57,7 +57,8 @@ def home(request):
         else:
             message="kata"
             form = SignUp()
-            return render(request, 'flixx/home.html', {"lik":likw,"dis":dis, 'movies': movie.objects.order_by('-popularity')[:20], 's': a, 'url':url, 'message': message, 'form': form, 'action': "SignUp" })
+            gh=True
+            return render(request, 'flixx/home.html', {"gh":gh,"lik":likw,"dis":dis, 'movies': movie.objects.order_by('-popularity')[:20], 's': a, 'url':url, 'message': message, 'form': form, 'action': "SignUp" })
     if request.user.is_authenticated():
         make(request)
         a = "logOut"
@@ -67,7 +68,8 @@ def home(request):
 
     else:
         form = SignUp()
-        return render(request, 'flixx/home.html', {"lik":likw,"dis":dis, 'movies': movie.objects.order_by('-popularity')[:20],'message':message,'url':url,'form':form,'action':"SignUp"})
+        gh=True
+        return render(request, 'flixx/home.html', {"gh":gh,"lik":likw,"dis":dis, 'movies': movie.objects.order_by('-popularity')[:20],'message':message,'url':url,'form':form,'action':"SignUp"})
 
 
 def UpdateProfile(request):
@@ -191,7 +193,8 @@ def lik(request,mi,uid):
         ti.l=int(uid)
         ti.save()
         print(ti)
-        return detailedview(request, mi)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        # return detailedview(request, mi)
     else:
         return rogin(request)
 def recommend(request):

@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background-color: rgba(255, 255, 236, 0.33);padding: 20%;">
+<div class="container-fluid" style="background-color: rgba(255, 255, 236, 0.33);padding: 40px;">
 <form class="form-vertical" method="post" action="{{ url }}">
     {% csrf_token %}
 {% for field in form %}
@@ -12,8 +12,12 @@
                 </div>
             {% endfor %}
             {% if gh %}
-                <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-                <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a><br>
+                <br>
+                    <div class=" btn btn-info"><a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a></div>
+                    <div class="btn btn-default"><a href="{% url 'social:begin' 'github' %}">Login with github</a></div>
+
+                <br>
+
             {% endif %}
                         <br>
                       <input type="submit" class="btn btn-success" value={{ action }}>

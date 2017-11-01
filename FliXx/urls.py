@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-
+from blog.feeds import BlogFeed
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^FliXx/', include('flixx.urls',namespace='flixx')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^blog/', include('blog.urls')),
+    url(r'rss', BlogFeed(), name = 'rss')
 ]

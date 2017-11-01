@@ -2,6 +2,21 @@
 {% block title %}
     FliXx | About Us
 {% endblock %}
+{% block navigation %}
+
+<li><a href="/FliXx/watched-movies">Movies watched</a>
+                    </li>
+
+                    <li ><a href="{% url 'flixx:recommend' %}">Recommend</a>
+                    </li>
+                    <li ><a href="{% url 'flixx:search' %}">Explore all movies</a>
+                    </li>
+                    <li><a href="#">Upcoming</a>
+                    </li>
+                    <li><a href="{% url 'flixx:login' %}">{% if user.is_authenticated %}LogOut{% else %}LogIn
+                    {% endif %}</a>
+                    </li>
+{% endblock %}
 {% block content %}
     <ul>
     <li >

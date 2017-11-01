@@ -32,6 +32,7 @@ MEDIA_ROOT=''
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
     'flixx.apps.FlixxConfig',
     'django.contrib.admin',
     'django.contrib.auth',
